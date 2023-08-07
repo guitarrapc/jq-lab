@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 echo "# select function returns matched. equals 2."
 cat ./_sample.json | jq ".numbers[] | select(.==2)"

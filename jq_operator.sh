@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 echo "# + operator"
 cat ./_sample.json | jq ".numbers[] | .+ 1"

@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: jq verseion
+      - name: jq version
         run: jq --version
       - name: jq basic
         run: bash ./jq_basic.sh

@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 echo "# Array property access. (.prop)"
 cat ./_sample.json | jq "strings"

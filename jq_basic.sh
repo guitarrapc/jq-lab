@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 echo "# Show buildin functions"
 jq -n 'builtins'
