@@ -1,32 +1,21 @@
 #!/bin/bash
 set -ex
 
-ci_on=""
-ci_off=""
-if [[ "$CI" != "" ]]; then
-  ci_on=::group::
-  ci_off="::endgroup::"
-fi
-function ci_off { echo "${ci_off}"; }
-
-echo "${ci_on}# select function returns matched. equals 2."
+echo "# select function returns matched. equals 2."
 cat ./_sample.json | jq ".numbers[] | select(.==2)"
 # 2
 
-ci_off
-echo "${ci_on}# select function returns matched. equals or larger then 2."
+echo "# select function returns matched. equals or larger then 2."
 cat ./_sample.json | jq ".numbers[] | select(.>=2)"
 # 2
 # 3
 
-ci_off
-echo "${ci_on}# select function returns matched. less then 2."
+echo "# select function returns matched. less then 2."
 cat ./_sample.json | jq ".numbers[] | select(.<2)"
 # 0
 # 1
 
-ci_off
-echo "${ci_on}# map function accept array input and project array. equals 2."
+echo "# map function accept array input and project array. equals 2."
 cat ./_sample.json | jq ".numbers | map(.+1)"
 # [
 #   1,
@@ -35,8 +24,7 @@ cat ./_sample.json | jq ".numbers | map(.+1)"
 #   4
 # ]
 
-ci_off
-echo "${ci_on}# map_values function accepct object and project value. equals 2."
+echo "# map_values function accepct object and project value. equals 2."
 cat ./_sample.json | jq ".objects | map_values(.+1)"
 # {
 #   "a": 2,
@@ -44,13 +32,11 @@ cat ./_sample.json | jq ".objects | map_values(.+1)"
 #   "c": 4
 # }
 
-ci_off
-echo "${ci_on}# add function accumulate number values."
+echo "# add function accumulate number values."
 cat ./_sample.json | jq ".numbers|add"
 # 6
 
-ci_off
-echo "${ci_on}# sort function sort array."
+echo "# sort function sort array."
 cat ./_sample.json | jq "[.nested_data[].price]|sort"
 # [
 #   10,
@@ -59,8 +45,7 @@ cat ./_sample.json | jq "[.nested_data[].price]|sort"
 #   450302
 # ]
 
-ci_off
-echo "${ci_on}# reverse function reverse array."
+echo "# reverse function reverse array."
 cat ./_sample.json | jq "[.nested_data[].price]|sort|reverse"
 # [
 #   450302,
@@ -69,18 +54,15 @@ cat ./_sample.json | jq "[.nested_data[].price]|sort|reverse"
 #   10
 # ]
 
-ci_off
-echo "${ci_on}# any function return true when one of item is match OR true."
+echo "# any function return true when one of item is match OR true."
 cat ./_sample.json | jq "[.nested_data[].price]|any(.==10)"
 # true
 
-ci_off
-echo "${ci_on}# all function return true when all items is match OR true."
+echo "# all function return true when all items is match OR true."
 cat ./_sample.json | jq "[.nested_data[].price]|all(.>0)"
 # true
 
-ci_off
-echo "${ci_on}# flatten function any dpeth flatten array."
+echo "# flatten function any dpeth flatten array."
 cat ./_sample.json | jq ".nested_array|flatten"
 # [
 #   1,
@@ -90,8 +72,7 @@ cat ./_sample.json | jq ".nested_array|flatten"
 #   5
 # ]
 
-ci_off
-echo "${ci_on}# flatten function flatten 1 depth array."
+echo "# flatten function flatten 1 depth array."
 cat ./_sample.json | jq ".nested_array|flatten(1)"
 # [
 #   1,
@@ -103,53 +84,43 @@ cat ./_sample.json | jq ".nested_array|flatten(1)"
 #   ]
 # ]
 
-ci_off
-echo "${ci_on}# bsearch function binary search value and return index."
+echo "# bsearch function binary search value and return index."
 cat ./_sample.json | jq ".numbers|bsearch(2)"
 # 2
 
-ci_off
-echo "${ci_on}# length function return length of string."
+echo "# length function return length of string."
 cat ./_sample.json | jq ".name|length"
 # 8
 
-ci_off
-echo "${ci_on}# length function return length of array."
+echo "# length function return length of array."
 cat ./_sample.json | jq ".numbers|length"
 # 4
 
-ci_off
-echo "${ci_on}# length function return length of map."
+echo "# length function return length of map."
 cat ./_sample.json | jq ".objects|length"
 # 3
 
-ci_off
-echo "${ci_on}# utf8bytelength function return length of string in utf bytes, ascii is 1."
+echo "# utf8bytelength function return length of string in utf bytes, ascii is 1."
 cat ./_sample.json | jq ".ascii_letter|utf8bytelength"
 # 1
 
-ci_off
-echo "${ci_on}# utf8bytelength function return length of string in utf bytes, latin1 supplement is 2."
+echo "# utf8bytelength function return length of string in utf bytes, latin1 supplement is 2."
 cat ./_sample.json | jq ".latin1supplement_letter|utf8bytelength"
 # 1
 
-ci_off
-echo "${ci_on}# utf8bytelength function return length of string in utf bytes, most JP is 3."
+echo "# utf8bytelength function return length of string in utf bytes, most JP is 3."
 cat ./_sample.json | jq ".jp_letter|utf8bytelength"
 # 3
 
-ci_off
-echo "${ci_on}# utf8bytelength function return length of string in utf bytes, surrogate JP is 4."
+echo "# utf8bytelength function return length of string in utf bytes, surrogate JP is 4."
 cat ./_sample.json | jq ".surrogate_letter|utf8bytelength"
 # 4
 
-ci_off
-echo "${ci_on}# getpath function to access property. (getpath([.prop, nexted_prop, nested_nested_prop]))"
+echo "# getpath function to access property. (getpath([.prop, nexted_prop, nested_nested_prop]))"
 cat ./_sample.json | jq "getpath([\"objects\", \"b\"])"
 # 2
 
-ci_off
-echo "${ci_on}# setpath function to replace value. (setpath([.prop, nexted_prop, nested_nested_prop]; value))"
+echo "# setpath function to replace value. (setpath([.prop, nexted_prop, nested_nested_prop]; value))"
 cat ./_sample.json | jq "setpath([\"objects\", \"b\"]; 200)" | jq ".objects"
 # {
 #   "b": 200,
@@ -157,16 +128,14 @@ cat ./_sample.json | jq "setpath([\"objects\", \"b\"]; 200)" | jq ".objects"
 #   "c": 3
 # }
 
-ci_off
-echo "${ci_on}# delpaths function to delete value. (delpaths([.prop, nexted_prop, nested_nested_prop]))"
+echo "# delpaths function to delete value. (delpaths([.prop, nexted_prop, nested_nested_prop]))"
 cat ./_sample.json | jq "delpaths([[\"objects\", \"b\"]])" | jq ".objects"
 # {
 #   "a": 1,
 #   "c": 3
 # }
 
-ci_off
-echo "${ci_on}# paths function show path to access property. ([paths])"
+echo "# paths function show path to access property. ([paths])"
 cat ./_sample.json | jq ".nested_map|[paths]"
 # [
 #   [
@@ -184,8 +153,7 @@ cat ./_sample.json | jq ".nested_map|[paths]"
 #   ]
 # ]
 
-ci_off
-echo "${ci_on}# leaf_paths function show path to access deppest property. ([leaf_paths])"
+echo "# leaf_paths function show path to access deppest property. ([leaf_paths])"
 cat ./_sample.json | jq ".nested_map|[leaf_paths]"
 # [
 #   [
@@ -200,8 +168,7 @@ cat ./_sample.json | jq ".nested_map|[leaf_paths]"
 #   ]
 # ]
 
-ci_off
-echo "${ci_on}# keys function get key and sort. (keys)"
+echo "# keys function get key and sort. (keys)"
 cat ./_sample.json | jq ".nested_map|keys"
 # [
 #   "b",
@@ -209,8 +176,7 @@ cat ./_sample.json | jq ".nested_map|keys"
 #   "c"
 # ]
 
-ci_off
-echo "${ci_on}# keys function get key and sort. (keys_unsorted)"
+echo "# keys function get key and sort. (keys_unsorted)"
 cat ./_sample.json | jq ".nested_map|keys_unsorted"
 # [
 #   "b",
@@ -218,14 +184,14 @@ cat ./_sample.json | jq ".nested_map|keys_unsorted"
 #   "c"
 # ]
 
-ci_off
-echo "${ci_on}# has function return true if object has. (has(\"prop\"))"
+
+echo "# has function return true if object has. (has(\"prop\"))"
 cat ./_sample.json | jq ".objects|has(\"b\"), has(\"d\")"
 # true
 # false
 
-ci_off
-echo "${ci_on}# to_entries function project map to {\"key\": key, \"value\": value}. (to_entries)"
+
+echo "# to_entries function project map to {\"key\": key, \"value\": value}. (to_entries)"
 cat ./_sample.json | jq ".objects|to_entries"
 # [
 #   {
@@ -242,8 +208,7 @@ cat ./_sample.json | jq ".objects|to_entries"
 #   }
 # ]
 
-ci_off
-echo "${ci_on}# from_entries function project {\"key\": key, \"value\": value} to map. (from_entries)"
+echo "# from_entries function project {\"key\": key, \"value\": value} to map. (from_entries)"
 cat ./_sample.json | jq ".objects|to_entries|from_entries"
 # {
 #   "a": 1,
@@ -251,8 +216,7 @@ cat ./_sample.json | jq ".objects|to_entries|from_entries"
 #   "c": 3
 # }
 
-ci_off
-echo "${ci_on}# with_entries function operate map's kep and value. (with_entries)"
+echo "# with_entries function operate map's kep and value. (with_entries)"
 cat ./_sample.json | jq ".objects|with_entries(.key=\"key_\"+.key|.value=.value*2)"
 # {
 #   "key_a": 2,
