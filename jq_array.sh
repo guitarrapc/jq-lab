@@ -1,7 +1,15 @@
 #!/bin/bash
 set -ex
 
-echo "# Array property access. (.prop)"
+ci_on=""
+ci_off=""
+if [[ "$CI" != "" ]]; then
+  ci_on=::group::
+  ci_off="::endgroup::"
+fi
+function ci_off { echo "${ci_off}"; }
+
+echo "${ci_on}# Array property access. (.prop)"
 cat ./_sample.json | jq "strings"
 # [
 #   "foo1",
@@ -11,7 +19,8 @@ cat ./_sample.json | jq "strings"
 #   "fuga5"
 # ]
 
-echo "# Array property access. (.prop[])"
+ci_off
+echo "${ci_on}# Array property access. (.prop[])"
 cat ./_sample.json | jq "strings[]"
 # "foo1"
 # "bar2"
@@ -19,22 +28,26 @@ cat ./_sample.json | jq "strings[]"
 # "tiger4"
 # "fuga5"
 
-echo "# Array property index access. (.prop[0])"
+ci_off
+echo "${ci_on}# Array property index access. (.prop[0])"
 cat ./_sample.json | jq "strings[0]"
 # "foo1"
 
-echo "# Array property last index access. (.prop[-1])"
+ci_off
+echo "${ci_on}# Array property last index access. (.prop[-1])"
 cat ./_sample.json | jq "strings[-1]"
 # "fuga5"
 
-echo "# Array property range index access. (.prop[2:4])"
+ci_off
+echo "${ci_on}# Array property range index access. (.prop[2:4])"
 cat ./_sample.json | jq "strings[2:4]"
 # [
 #   "piyo3",
 #   "tiger4"
 # ]
 
-echo "# Array objects property access. (.prop[])"
+ci_off
+echo "${ci_on}# Array objects property access. (.prop[])"
 cat ./_sample.json | jq ".nested_data[]"
 # {
 #   "id": "abcdefg-12345",
@@ -53,14 +66,16 @@ cat ./_sample.json | jq ".nested_data[]"
 #   "price": 450302
 # }
 
-echo "# Array object property access. (filter1.filter2)"
+ci_off
+echo "${ci_on}# Array object property access. (filter1.filter2)"
 cat ./_sample.json | jq ".nested_data[].id"
 # "abcdefg-12345"
 # "bcdefgh-23456"
 # "cdefghi-34567"
 # "defghij-45678
 
-echo "# Array object property access result in array. ([filter1.filter2])"
+ci_off
+echo "${ci_on}# Array object property access result in array. ([filter1.filter2])"
 cat ./_sample.json | jq "[.nested_data[].id]"
 # [
 #   "abcdefg-12345",
@@ -69,7 +84,8 @@ cat ./_sample.json | jq "[.nested_data[].id]"
 #   "defghij-45678"
 # ]
 
-echo "# Array object property output as object. ({filter})"
+ci_off
+echo "${ci_on}# Array object property output as object. ({filter})"
 cat ./_sample.json | jq "{id: .nested_data[].id}"
 # {
 #   "id": "abcdefg-12345"
@@ -84,7 +100,8 @@ cat ./_sample.json | jq "{id: .nested_data[].id}"
 #   "id": "defghij-45678"
 # }
 
-echo "# Array object property output as object and pipe. (filter | {filter})"
+ci_off
+echo "${ci_on}# Array object property output as object and pipe. (filter | {filter})"
 cat ./_sample.json | jq ".nested_data[] | {id: .id, price: .price}"
 # {
 #   "id": "abcdefg-12345",
@@ -103,7 +120,8 @@ cat ./_sample.json | jq ".nested_data[] | {id: .id, price: .price}"
 #   "price": 450302
 # }
 
-echo "# Array object property output as object key is prop. (filter | {filter})"
+ci_off
+echo "${ci_on}# Array object property output as object key is prop. (filter | {filter})"
 cat ./_sample.json | jq ".nested_data[] | {(.id): .price}"
 # {
 #   "abcdefg-12345": 10

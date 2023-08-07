@@ -1,42 +1,55 @@
 #!/bin/bash
 set -ex
 
-echo "# + operator"
+ci_on=""
+ci_off=""
+if [[ "$CI" != "" ]]; then
+  ci_on=::group::
+  ci_off="::endgroup::"
+fi
+function ci_off { echo "${ci_off}"; }
+
+echo "${ci_on}# + operator"
 cat ./_sample.json | jq ".numbers[] | .+ 1"
 # 1
 # 2
 # 3
 # 4
 
-echo "# - operator"
+ci_off
+echo "${ci_on}# - operator"
 cat ./_sample.json | jq ".numbers[] | .- 1"
 # -1
 # 0
 # 1
 # 2
 
-echo "# * operator"
+ci_off
+echo "${ci_on}# * operator"
 cat ./_sample.json | jq ".numbers[] | .* 2"
 # 0
 # 2
 # 4
 # 6
 
-echo "# / operator"
+ci_off
+echo "${ci_on}# / operator"
 cat ./_sample.json | jq ".numbers[] | ./ 2"
 # 0
 # 0.5
 # 1
 # 1.5
 
-echo "# % operator"
+ci_off
+echo "${ci_on}# % operator"
 cat ./_sample.json | jq ".numbers[] | .% 2"
 # 0
 # 1
 # 0
 # 1
 
-echo "# == opeerator"
+ci_off
+echo "${ci_on}# == opeerator"
 cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"==2\"):(. == 2)}"
 # {
 #   "0==2": false
@@ -51,7 +64,8 @@ cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"==2\"):(. == 2)}"
 #   "3==2": false
 # }
 
-echo "# != opeerator"
+ci_off
+echo "${ci_on}# != opeerator"
 cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"!=2\"):(. != 2)}"
 # {
 #   "0!=2": true
@@ -66,7 +80,8 @@ cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"!=2\"):(. != 2)}"
 #   "3!=2": true
 # }
 
-echo "# > opeerator"
+ci_off
+echo "${ci_on}# > opeerator"
 cat ./_sample.json | jq ".numbers[] | {(.|tostring + \">2\"):(. > 2)}"
 # {
 #   "0>2": false
@@ -81,7 +96,8 @@ cat ./_sample.json | jq ".numbers[] | {(.|tostring + \">2\"):(. > 2)}"
 #   "3>2": true
 # }
 
-echo "# >= opeerator"
+ci_off
+echo "${ci_on}# >= opeerator"
 cat ./_sample.json | jq ".numbers[] | {(.|tostring + \">=2\"):(. >= 2)}"
 # {
 #   "0>=2": false
@@ -96,7 +112,8 @@ cat ./_sample.json | jq ".numbers[] | {(.|tostring + \">=2\"):(. >= 2)}"
 #   "3>=2": true
 # }
 
-echo "# < opeerator"
+ci_off
+echo "${ci_on}# < opeerator"
 cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"<2\"):(. < 2)}"
 # {
 #   "0<2": true
@@ -111,7 +128,8 @@ cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"<2\"):(. < 2)}"
 #   "3<2": false
 # }
 
-echo "# <= opeerator"
+ci_off
+echo "${ci_on}# <= opeerator"
 cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"<=2\"):(. <= 2)}"
 # {
 #   "0<=2": true
@@ -126,8 +144,8 @@ cat ./_sample.json | jq ".numbers[] | {(.|tostring + \"<=2\"):(. <= 2)}"
 #   "3<=2": false
 # }
 
-
-echo "# and opeerator"
+ci_off
+echo "${ci_on}# and opeerator"
 cat ./_sample.json | jq ".numbers[] | {(\"2 >= \" + (.|tostring) + \" < 3\"):(. >= 2 and . < 3)}"
 # {
 #   "2 >= 0 < 3": false
@@ -142,7 +160,8 @@ cat ./_sample.json | jq ".numbers[] | {(\"2 >= \" + (.|tostring) + \" < 3\"):(. 
 #   "2 >= 3 < 3": false
 # }
 
-echo "# or opeerator"
+ci_off
+echo "${ci_on}# or opeerator"
 cat ./_sample.json | jq ".numbers[] | {(\"3 >= \" + (.|tostring) + \" <= 0\"):(. >= 3 or . <= 0)}"
 # {
 #   "3 >= 0 <= 0": true
@@ -157,7 +176,8 @@ cat ./_sample.json | jq ".numbers[] | {(\"3 >= \" + (.|tostring) + \" <= 0\"):(.
 #   "3 >= 3 <= 0": true
 # }
 
-echo "# not opeerator"
+ci_off
+echo "${ci_on}# not opeerator"
 cat ./_sample.json | jq ".numbers[] | {(\"not \" + (.|tostring) + \" < 2\"):(. < 2|not)}"
 # {
 #   "not 0 < 2": false
