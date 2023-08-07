@@ -1,0 +1,25 @@
+name: jq output
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  jq:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: jq basic
+        run: bash ./jq_basic.sh
+      - name: jq array
+        run: bash ./jq_array.sh
+      - name: jq date
+        run: bash ./jq_date.sh
+      - name: jq functions
+        run: bash ./jq_functions.sh
+      - name: jq operator
+        run: bash ./jq_operator.sh
+      - name: jq strings
+        run: bash ./jq_strings.sh

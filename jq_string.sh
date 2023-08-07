@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-echo "# select property contains '\"'."
-echo "{\"message\": \"foobar\"}" | jq ".message"
+echo "# String value contains '\"'."
+cat ./_sample.json | jq ".name"
+# "John Doe"
 
-echo "# -r remove '\"' from result."
-echo "{\"message\": \"foobar\"}" | jq -r ".message"
+echo "# -r remove '\"' from string value."
+cat ./_sample.json | jq -r ".name"
+# John Doe

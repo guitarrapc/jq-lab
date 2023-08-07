@@ -1,0 +1,78 @@
+{
+  "name": "John Doe",
+  "age": 20,
+  "ascii_letter": "a",
+  "latin1supplement_letter": "ö",
+  "jp_letter": "あ",
+  "surrogate_letter": "𩸽",
+  "10": 10,
+  "nested_array": [
+    1,
+    [
+      2,
+      3,
+      [
+        4,
+        5
+      ]
+    ]
+  ],
+  "nested_map": {
+    "b":456,
+    "a":123,
+    "c":{
+      "d":789
+    }
+  },
+  "complex_data": [
+    {"a":1},
+    [1,23],
+    true,
+    null,
+    42,
+    "string_data"
+  ],
+  "objects": {
+    "a": 1,
+    "b": 2,
+    "c": 3
+  },
+  "nested_data": [
+    {
+      "id": "abcdefg-12345",
+      "price": 10
+    },
+    {
+      "id": "bcdefgh-23456",
+      "price": 1020
+    },
+    {
+      "id": "cdefghi-34567",
+      "price": 205
+    },
+    {
+      "id": "defghij-45678",
+      "price": 450302
+    }
+  ],
+  "multiple": [
+    0,
+    "aaa"
+  ],
+  "numbers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "strings": [
+    "foo1",
+    "bar2",
+    "piyo3",
+    "tiger4",
+    "fuga5"
+  ],
+  "created_at": "2022-01-08T20:49:07.336Z",
+  "created_at_iso8601": "2022-01-08T20:49:07Z",
+  "created_at_tz": "2022-01-08T20:49:07+0000"
+}
