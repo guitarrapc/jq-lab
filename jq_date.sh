@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 echo "--------------------------"
 echo "ISO8601 can work with fromdate/todate."
