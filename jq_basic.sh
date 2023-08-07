@@ -8,6 +8,10 @@ echo "# Access to single property. (.prop)"
 cat ./_sample.json | jq ".name"
 # "John Doe"
 
+echo "# String output without quote \"\". (-r .prop)"
+cat ./_sample.json | jq -r ".name"
+# "John Doe"
+
 echo "# Access to muliple property. (.prop1, .prop2))"
 cat ./_sample.json | jq ".name, .age"
 # "John Doe"

@@ -23,5 +23,3 @@ jobs:
         run: bash ./jq_functions.sh
       - name: jq operator
         run: bash ./jq_operator.sh
-      - name: jq string
-        run: bash ./jq_string.sh
