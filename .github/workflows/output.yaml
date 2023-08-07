@@ -10,7 +10,9 @@ jobs:
   jq:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: jq verseion
+        run: jq --version
       - name: jq basic
         run: bash ./jq_basic.sh
       - name: jq array
@@ -21,5 +23,5 @@ jobs:
         run: bash ./jq_functions.sh
       - name: jq operator
         run: bash ./jq_operator.sh
-      - name: jq strings
-        run: bash ./jq_strings.sh
+      - name: jq string
+        run: bash ./jq_string.sh
