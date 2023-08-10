@@ -71,3 +71,15 @@ cat ./_sample.json | jq -r '.created_at_tz | strptime("%Y-%m-%dT%H:%M:%S +0000")
 echo "# Time parse with strptime, then convert from UTF to JST+9, then output to time format."
 cat ./_sample.json | jq -r '.created_at_tz | strptime("%Y-%m-%dT%H:%M:%S +0000") | mktime + (60 * 60 * 9) | strftime("%F %X")'
 # 2022-01-09 05:49:07
+
+
+echo ""
+echo "--------------------------"
+echo "Dynamic time conversion."
+echo "input string: 2022/01/08 20:49:07"
+echo "--------------------------"
+echo "# JQ each time elements"
+cat ./_sample.json | jq '.json_log[] | {type: .data_type, year: .created_at | strptime("%Y/%m/%d %H:%M:%S") | (mktime + (60 * 60 * 9)) | strftime("%Y"), month: .created_at | strptime("%Y/%m/%d %H:%M:%S") | (mktime + (60 * 60 * 9)) | strftime("%m"), day: .created_at | strptime("%Y/%m/%d %H:%M:%S") | (mktime + (60 * 60 * 9)) | strftime("%d"), hour: .created_at | strptime("%Y/%m/%d %H:%M:%S") | (mktime + (60 * 60 * 9)) | strftime("%H")}'
+
+echo "# JQ time parse then split element"
+cat ./_sample.json | jq '.json_log[] | {type: .data_type, time: .created_at | strptime("%Y/%m/%d %H:%M:%S") | (mktime + (60 * 60 * 9)) } | {data_type: .type, year: .time | strftime("%Y"), month: .time | strftime("%m"), day: .time | strftime("%d"), hour: .time | strftime("%H")}'
